@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+      <div *ngIf="employee">
+        <h2>
+          <span jhiTranslate="employees.detail.title">Employee</span> [<strong>{{ employee.login }}</strong
+          >]
+        </h2>
+  
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="employees.login">Login</span></dt>
+          <dd>
+            <span>{{ employee.login }}</span>
+            <span *ngIf="employee.activated" class="badge badge-success" jhiTranslate="employees.activated">Activated</span>
+            <span *ngIf="!employee.activated" class="badge badge-danger" jhiTranslate="employees.deactivated">Deactivated</span>
+          </dd>
+  
+          <dt><span jhiTranslate="employees.firstName">First Name</span></dt>
+          <dd>{{ employee.firstName }}</dd>
+  
+          <dt><span jhiTranslate="employees.lastName">Last Name</span></dt>
+          <dd>{{ employee.lastName }}</dd>
+  
+          <dt><span jhiTranslate="employees.email">Email</span></dt>
+          <dd>{{ employee.email }}</dd>
+  
+          <dt><span jhiTranslate="employees.langKey">Lang Key</span></dt>
+          <dd>{{ employee.langKey }}</dd>
+  
+          <dt><span jhiTranslate="employees.createdBy">Created By</span></dt>
+          <dd>{{ employee.createdBy }}</dd>
+  
+          <dt><span jhiTranslate="employees.createdDate">Created Date</span></dt>
+          <dd>{{ employee.createdDate | date: 'dd/MM/yy HH:mm' }}</dd>
+  
+          <dt><span jhiTranslate="employees.lastModifiedBy">Last Modified By</span></dt>
+          <dd>{{ employee.lastModifiedBy }}</dd>
+  
+          <dt><span jhiTranslate="employees.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>{{ employee.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</dd>
+  
+          <dt><span jhiTranslate="employees.profiles">Profiles</span></dt>
+          <dd>
+            <ul class="list-unstyled">
+              <li *ngFor="let authority of employee.authorities">
+                <span class="badge badge-info">{{ authority }}</span>
+              </li>
+            </ul>
+          </dd>
+        </dl>
+  
+        <button type="submit" routerLink="../../" class="btn btn-info">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  

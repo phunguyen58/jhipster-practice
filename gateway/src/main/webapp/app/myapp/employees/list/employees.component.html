@@ -1,0 +1,93 @@
+<div>
+    <h2>
+      <span id="employees-page-heading" jhiTranslate="employees.home.title" data-cy="EmployeesPageHeading">Employees</span>
+  
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="employees.home.refreshListLabel">Refresh List</span>
+        </button>
+        <button class="btn btn-primary jh-create-entity" [routerLink]="['./', 'new']">
+          <fa-icon icon="plus"></fa-icon> <span jhiTranslate="employees.home.createLabel">Create a new Employee</span>
+        </button>
+      </div>
+    </h2>
+  
+    <jhi-alert-error></jhi-alert-error>
+  
+    <jhi-alert></jhi-alert>
+  
+    <div class="table-responsive" *ngIf="employees">
+      <table class="table table-striped" aria-describedby="employees-page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+            <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="firstName"><span jhiTranslate="employees.firstName">FirstName</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="lastName"><span jhiTranslate="employees.lastName">LastName</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="email"><span jhiTranslate="employees.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="login"><span jhiTranslate="employees.phoneNumber">PhoneNumber</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="login"><span jhiTranslate="employees.hireDate">HireDate</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="login"><span jhiTranslate="employees.salary">Salary</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="login"><span jhiTranslate="employees.commissionPct">CommissionPct</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" style="text-align: right;">Action Button</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="employees">
+          <tr *ngFor="let employee of employees; trackBy: trackIdentity">
+            <td>
+              <a [routerLink]="['./', 'view', employee.employeeId]">{{ employee.employeeId }}</a>
+            </td>
+            <td>{{ employee.firstName }}</td>
+            <td>{{ employee.lastName }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phoneNumber }}</td>
+            <td>{{ employee.hireDate | date: 'dd/MM/yy HH:mm' }}</td>
+            <td>{{ employee.salary }}</td>
+            <td>{{ employee.commissionPct }}</td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['./', 'view', employee.employeeId]" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+  
+                <button type="submit" [routerLink]="['./', 'edit', employee.employeeId]" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+  
+                <button
+                  type="button"
+                  (click)="deleteEmployee(employee)"
+                  class="btn btn-danger btn-sm"
+                  [disabled]="!currentAccount || currentAccount.login === employee.login"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="employees">
+      <div class="row justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+  
+      <div class="row justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="transition()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  

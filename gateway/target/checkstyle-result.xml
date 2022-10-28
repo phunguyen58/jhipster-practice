@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.0">
+<file name="/home/fusion/Documents/big-exercise/gateway/README.md">
+</file>
+<file name="/home/fusion/Documents/big-exercise/gateway/pom.xml">
+</file>
+<file name="/home/fusion/Documents/big-exercise/gateway/src/main/resources/.h2.server.properties">
+</file>
+<file name="/home/fusion/Documents/big-exercise/gateway/src/main/resources/i18n/messages_en.properties">
+</file>
+<file name="/home/fusion/Documents/big-exercise/gateway/src/main/resources/i18n/messages.properties">
+</file>
+<file name="/home/fusion/Documents/big-exercise/gateway/src/test/resources/i18n/messages_en.properties">
+</file>
+</checkstyle>

@@ -1,0 +1,36 @@
+{
+    "employees": {
+      "home": {
+        "title": "Employees",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new employee",
+        "createOrEditLabel": "Create or edit a employee"
+      },
+      "created": "A new employee is created with identifier {{ param }}",
+      "updated": "A employee is updated with identifier {{ param }}",
+      "deleted": "A employee is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete employee {{ login }}?"
+      },
+      "detail": {
+        "title": "Employee"
+      },
+      "login": "Login",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "hireDate": "Hire Date",
+      "salary": "Salary",
+      "commissionPct": "Commission Pct",
+      "activated": "Activated",
+      "deactivated": "Deactivated",
+      "profiles": "Profiles",
+      "langKey": "Language",
+      "createdBy": "Created by",
+      "createdDate": "Created date",
+      "lastModifiedBy": "Modified by",
+      "lastModifiedDate": "Modified date"
+    }
+  }
+  
