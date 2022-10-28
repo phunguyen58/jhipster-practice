@@ -1,0 +1,55 @@
+{
+  "name": "Department",
+  "fields": [
+    {
+      "fieldName": "departmentId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "departmentName",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "department",
+      "relationshipName": "employees"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "jobHistory",
+      "otherEntityRelationshipName": "department",
+      "relationshipName": "jobHistories"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "employee",
+      "otherEntityRelationshipName": "managedDepartments",
+      "relationshipName": "manager"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "location",
+      "otherEntityRelationshipName": "departments",
+      "relationshipName": "location"
+    }
+  ],
+  "entityTableName": "department",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["employee"],
+  "microserviceName": "employee",
+  "clientRootFolder": "employee",
+  "databaseType": "sql",
+  "changelogDate": "20221024114347"
+}

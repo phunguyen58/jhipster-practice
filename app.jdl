@@ -1,0 +1,100 @@
+application {
+  config {
+    baseName employee
+    applicationType microservice
+    packageName com.leap.training.employee
+    serviceDiscoveryType eureka
+    authenticationType jwt
+    prodDatabaseType oracle
+    devDatabaseType oracle
+    buildTool maven
+    serverPort 8081
+    skipUserManagement true
+    skipClient true
+  }
+  entities Employee, Job, JobHistory, Department, Location, Country, Region
+}
+
+paginate * with pagination
+service * with serviceClass
+
+application {
+  config {
+    baseName gateway
+    applicationType gateway
+    packageName com.leap.training.gateway
+    serviceDiscoveryType eureka
+    authenticationType jwt
+    devDatabaseType h2Disk
+    prodDatabaseType oracle
+    buildTool maven
+    serverPort 8080
+    clientFramework angular
+    testFrameworks [cypress]
+    skipUserManagement false
+  }
+}
+
+entity Employee {
+  @Id EmployeeId Long
+  FirstName String
+  LastName String
+  Email String
+  PhoneNumber String
+  HireDate ZonedDateTime
+  Salary Long
+  CommissionPct Long
+}
+
+entity Job {
+  @Id JobId String
+  JobTitle String
+  MinSalary Long
+  MaxSalary Long
+}
+
+# Don't create Id because it's is a compound key table
+entity JobHistory {
+  EmployeeId Long
+  StartDate Long
+  EndDate Long
+}
+
+entity Department {
+  @Id DepartmentId Long
+  DepartmentName String
+}
+
+entity Location {
+  @Id LocationId Long
+  StreetAddress String
+  PostalCode String
+  City String
+  StateProvince String
+}
+
+entity Country {
+  @Id CountryId String
+  CountryName String
+}
+
+entity Region {
+  @Id RegionId Long
+  RegionName String
+}
+
+relationship OneToMany {
+  Job{Employees} to Employee{Job}
+  Employee{SubEmployees} to Employee{Manager}
+  Department{Employees} to Employee{Department}
+
+  Job{JobHistories} to JobHistory{Job}
+  Department{JobHistories} to JobHistory{Department}
+
+  Employee{ManagedDepartments} to Department{Manager}
+  Location{Departments} to Department{Location}
+
+  Country{Locations} to Location{Country}
+  
+  Region{Countries} to Country{Region}
+}
