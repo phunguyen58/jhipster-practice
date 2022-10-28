@@ -15,8 +15,22 @@ application {
   entities Employee, Job, JobHistory, Department, Location, Country, Region
 }
 
-paginate * with pagination
-service * with serviceClass
+application {
+  config {
+    baseName document
+    applicationType microservice
+    packageName com.leap.training.document
+    serviceDiscoveryType eureka
+    authenticationType jwt
+    prodDatabaseType oracle
+    devDatabaseType h2Disk
+    buildTool maven
+    serverPort 8082
+    skipUserManagement true
+    skipClient true
+  }
+  entities Document, DocumentType
+}
 
 application {
   config {
@@ -34,6 +48,9 @@ application {
     skipUserManagement false
   }
 }
+
+paginate * with pagination
+service * with serviceClass
 
 entity Employee {
   @Id EmployeeId Long
@@ -56,8 +73,8 @@ entity Job {
 # Don't create Id because it's is a compound key table
 entity JobHistory {
   EmployeeId Long
-  StartDate Long
-  EndDate Long
+  StartDate ZonedDateTime
+  EndDate ZonedDateTime
 }
 
 entity Department {
@@ -83,6 +100,18 @@ entity Region {
   RegionName String
 }
 
+entity Document {
+  @Id DocumentId Long
+  DocumentName String
+  DocumentType Long
+  EmployeeId Long
+}
+
+entity DocumentType{
+  @Id DocumentTypeId Long
+  Description String
+}
+
 relationship OneToMany {
   Job{Employees} to Employee{Job}
   Employee{SubEmployees} to Employee{Manager}
@@ -97,4 +126,6 @@ relationship OneToMany {
   Country{Locations} to Location{Country}
   
   Region{Countries} to Country{Region}
+
+  DocumentType{Document} to Document{DocumentType}
 }
